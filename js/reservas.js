@@ -53,17 +53,11 @@ const rTotal = document.getElementById("rTotal");
 function actualizarResumen(){
 
     const nombre = document.getElementById("nombre").value;
-
     const ingreso = document.getElementById("fechaInicio").value;
-
     const salida = document.getElementById("fechaFin").value;
-
     const personas = document.getElementById("personas").value;
-
     const correo = document.getElementById("email").value;
-
     codigoReserva.textContent = generarCodigo();
-
     rCorreo.textContent = correo || "-";
     rNombre.textContent = nombre || "-";
     rIngreso.textContent = ingreso || "-";
@@ -285,15 +279,19 @@ guardarReservas();
 });
 
 function fechaBloqueada(fecha) {
-  const f = normalizarFecha(fecha);
 
-  return reservasExistentes.some(reserva => {
-    const inicio = normalizarFecha(reserva.inicio);
-    const fin = normalizarFecha(reserva.fin);
+    const f = normalizarFecha(fecha);
 
-    // 🔴 BLOQUEA desde inicio hasta fin INCLUSIVE
-    return f >= inicio && f <= fin;
-  });
+    return reservasExistentes.some(reserva => {
+
+        const inicio = normalizarFecha(reserva.inicio);
+        const fin = normalizarFecha(reserva.fin);
+
+        // El día de salida queda libre
+        return f >= inicio && f < fin;
+
+    });
+
 }
 
 // ===============================
@@ -359,8 +357,8 @@ function generarCalendario() {
 // ===============================
 // AGREGA LOS BOTONES DE NAVEGACIÓN
 // ===============================
-document.getElementById("prevMonth").addEventListener("click", () => {
-  currentMonth--;
+  document.getElementById("prevMonth").addEventListener("click", () => {
+     currentMonth--;
   if (currentMonth < 0) {
     currentMonth = 11;
     currentYear--;
