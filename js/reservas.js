@@ -119,11 +119,22 @@ if (!localStorage.getItem(RESERVAS_KEY)) {
 // UTILIDADES
 // ===============================
 function normalizarFecha(fecha) {
-  const f = new Date(fecha);
-  f.setHours(0, 0, 0, 0);
-  return f;
-}
 
+    if (typeof fecha === "string") {
+
+        const [anio, mes, dia] = fecha.split("-").map(Number);
+
+        return new Date(anio, mes - 1, dia);
+
+    }
+
+    return new Date(
+        fecha.getFullYear(),
+        fecha.getMonth(),
+        fecha.getDate()
+    );
+
+}
 function guardarReservas() {
   localStorage.setItem(
     RESERVAS_KEY,

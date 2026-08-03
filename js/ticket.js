@@ -24,25 +24,34 @@ function generarPDF(){
     const precio = document.getElementById("rPrecio").textContent;
     const total = document.getElementById("rTotal").textContent;
 
-    // Encabezado
+// ======================
+// Encabezado
+// ======================
 
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(20);
+// Nombre del hotel
+doc.setFont("helvetica","bold");
+doc.setFontSize(22);
 
-   doc.text(
-    `${CONFIG.hotel.ciudad} - ${CONFIG.hotel.departamento} - ${CONFIG.hotel.pais}`,
+doc.text(
+    CONFIG.hotel.nombre,
     105,
-    28,
-    { align: "center" }
+    20,
+    { align:"center" }
 );
 
-    doc.setFontSize(11);
+// Ciudad
+doc.setFont("helvetica","normal");
+doc.setFontSize(12);
 
-    doc.setFont("helvetica","normal");
+doc.text(
+    `${CONFIG.hotel.ciudad} - ${CONFIG.hotel.departamento} - ${CONFIG.hotel.pais}`,
+    105,
+    30,
+    { align:"center" }
+);
 
-    doc.text("Los Organos - Piura - Peru",105,28,{align:"center"});
-
-    doc.line(20,35,190,35);
+// Línea
+doc.line(20,38,190,38);
 
     let y = 50;
 
