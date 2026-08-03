@@ -1,23 +1,97 @@
-const form = document.getElementById('reviewForm');
-const reviewsList = document.getElementById('reviewsList');
+// =======================================
+// RESEÑAS
+// =======================================
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+const REVIEWS_KEY = "buganvilliasReviews";
 
-  const name = document.getElementById('name').value.trim();
-  const comment = document.getElementById('comment').value.trim();
-  const rating = document.getElementById('rating').value;
+const form = document.getElementById("reviewForm");
+const reviewsList = document.getElementById("reviewsList");
 
-  if (!name || !comment || !rating) return;
+// Cargar reseñas guardadas
+let reviews = JSON.parse(localStorage.getItem(REVIEWS_KEY)) || [];
 
-  const review = document.createElement('div');
-  review.classList.add('review');
+// ==============================
+// Mostrar reseñas
+// ==============================
 
-  review.innerHTML = `
-    <h4>${name} <span>${rating}</span></h4>
-    <p>${comment}</p>
-  `;
+function mostrarResenas() {
 
-  reviewsList.prepend(review);
-  form.reset();
+    reviewsList.innerHTML = "";
+
+    reviews
+        .slice()
+        .reverse()
+        .forEach(review => {
+
+            const card = document.createElement("div");
+
+            card.classList.add("review");
+
+            card.innerHTML = `
+                <h4>${review.name} <span>${review.rating}</span></h4>
+                <p>${review.comment}</p>
+                <small>${review.date}</small>
+            `;
+
+            reviewsList.appendChild(card);
+
+        });
+
+}
+
+// ==============================
+// Guardar reseñas
+// ==============================
+
+function guardarResenas() {
+
+    localStorage.setItem(
+        REVIEWS_KEY,
+        JSON.stringify(reviews)
+    );
+
+}
+
+// ==============================
+// Nueva reseña
+// ==============================
+
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+
+    const comment = document.getElementById("comment").value.trim();
+
+    const rating = document.getElementById("rating").value;
+
+    if(!name || !comment || !rating){
+
+        return;
+
+    }
+
+    reviews.push({
+
+        name,
+
+        comment,
+
+        rating,
+
+        date: new Date().toLocaleDateString("es-PE")
+
+    });
+
+    guardarResenas();
+
+    mostrarResenas();
+
+    form.reset();
+
 });
+
+// Mostrar al abrir la página
+
+mostrarResenas();
