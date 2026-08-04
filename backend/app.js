@@ -1,14 +1,20 @@
+require("dotenv").config();
+
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
-const PORT = 3000;
+require("./config/database");
 
-app.get("/", (req, res) => {
+app.use(cors());
+app.use(express.json());
 
-    res.send("Backend Buganvillias funcionando 🚀");
+const habitacionRoutes = require("./routes/habitacionRoutes");
 
-});
+app.use("/api/habitaciones", habitacionRoutes);
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
