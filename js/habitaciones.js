@@ -38,10 +38,16 @@ async function cargarHabitaciones() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Error al cargar habitaciones:", error);
+
+        listaHabitaciones.innerHTML = `
+            <div class="mensaje-error">
+                <h3>No se pudieron cargar las habitaciones</h3>
+                <p>Intenta nuevamente en unos minutos.</p>
+            </div>
+        `;
 
     }
-
 }
 
 cargarHabitaciones();
