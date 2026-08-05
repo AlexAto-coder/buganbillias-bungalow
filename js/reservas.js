@@ -402,3 +402,14 @@ fechaInicio.addEventListener("change", actualizarResumen);
 fechaFin.addEventListener("change", actualizarResumen);
 
 personas.addEventListener("change", actualizarResumen);
+
+// Ocultar herramientas de desarrollo en GitHub Pages
+if (window.location.hostname === "alexato-coder.github.io") {
+
+    const btn = document.getElementById("btnReiniciar");
+
+    if (btn) {
+        btn.style.display = "none";
+    }
+
+}
