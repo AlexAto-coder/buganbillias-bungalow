@@ -122,11 +122,13 @@
         <div class="cards-experiencias">
 
         <article class="card-exp">
-            <img src="img/experiencias/tarjetas/playa_.jpg" alt="Playa">
+            <img src="img//experiencias/tarjetas/playa.jpg" alt="Playa">
 
             <div class="contenido-exp">
 
-                   <h3>Disfruta la Playa</h3>
+                <span>🏖️</span>
+
+                <h3>Disfruta la Playa</h3>
 
                 <p>
                     Relájate frente al mar, toma el sol y disfruta de la tranquilidad de Playa Los Órganos.
@@ -140,9 +142,9 @@
         </article>
 
             <article class="card-exp">
-                <img src="img/experiencias/tarjetas/atardeceres_.jpg" alt="Atardeceres">
+                <img src="img/atardecer.jpg" alt="Atardecer">
                 <div class="contenido-exp">
-                    
+                    <span>🌅</span>
                     <h3>Atardeceres</h3>
                     <p>Contempla uno de los atardeceres más hermosos del norte peruano.</p>
                     <a href="#" class="btn-galeria" data-galeria="atardeceres">Ver más</a>
@@ -150,9 +152,9 @@
             </article>
 
             <article class="card-exp">
-                <img src="img/experiencias/tarjetas/gastronomia.jpg" alt="Gastronomía">
+                <img src="img/gastronomia.jpg" alt="Gastronomía">
                 <div class="contenido-exp">
-                    
+                    <span>🍤</span>
                     <h3>Gastronomía</h3>
                     <p>Saborea pescados y mariscos frescos preparados por restaurantes locales.</p>
                     <a href="#" class="btn-galeria" data-galeria="gastronomia">Ver más</a>
@@ -161,9 +163,9 @@
             </article>
 
             <article class="card-exp">
-                <img src="img/experiencias/tarjetas/fotografia.jpg" alt="Fotografía">
+                <img src="img/fotografia.jpg" alt="Fotografía">
                 <div class="contenido-exp">
-               
+                    <span>📸</span>
                     <h3>Fotografía</h3>
                     <p>Llévate los mejores recuerdos con paisajes únicos y espectaculares.</p>
                     <a href="#" class="btn-galeria" data-galeria="fotografia">Ver más</a>
@@ -171,19 +173,19 @@
             </article>
 
             <article class="card-exp">
-                <img src="img/experiencias/tarjetas/pesca.jpg" alt="Pesca Artesanal">
+                <img src="img/pesca.jpg" alt="Pesca">
                 <div class="contenido-exp">
-                   
+                    <span>🎣</span>
                     <h3>Pesca Artesanal</h3>
-                    <p>Conoce el trabajo de los pescadores y vive una experiencia auténtica. Sé parte del avistamiento de ballenas</p>
+                    <p>Conoce el trabajo de los pescadores y vive una experiencia auténtica.</p>
                     <a href="#" class="btn-galeria" data-galeria="pesca">Ver más</a>
                 </div>
             </article>
 
             <article class="card-exp">
-                <img src="img/experiencias/tarjetas/caballos.jpg" alt="Cabalgatas y Tortugas">
+                <img src="img/caballos.jpg" alt="Tortugas">
                 <div class="contenido-exp">
-                
+                    <span>🐎</span>
                     <h3>Tortugas</h3>
                     <p>Recorre la playa, visita a las tortugas y realiza cabalgatas.</p>
                     <a href="#" class="btn-galeria" data-galeria="tortugas">Ver más</a>

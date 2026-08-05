@@ -1,3 +1,4 @@
+css
 *{
     margin: 0;
     padding: 0;
@@ -80,8 +81,6 @@ header{
     transition: transform .3s ease-in-out;
     transform: translate(110%);
     box-shadow: 0 0 6px rgb(0, 0, 0, 0.5);
-
-     z-index: 9999;  
 }
 .spread{
     transform: translate(0);
@@ -786,9 +785,12 @@ footer{
 .card-exp img{
 
     width:100%;
-    height:220px;
+
+    height:240px;
+
     object-fit:cover;
-    display:block;
+
+    transition:.4s;
 
 }
 
@@ -800,57 +802,56 @@ footer{
 
 .contenido-exp{
 
-    padding:22px;
-    text-align:center;
+    padding:25px;
 
 }
 
 .contenido-exp span{
 
-    font-size:34px;
-    display:block;
-    margin-top:-42px;
-    margin-bottom:12px;
+    font-size:40px;
 
 }
 
 .contenido-exp h3{
 
-    margin-bottom:12px;
+    margin:15px 0;
+
     color:#003566;
-    font-size:1.45rem;
 
 }
 
 .contenido-exp p{
 
-     color:#666;
-    line-height:1.7;
-    margin-bottom:22px;
+    color:#666;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
 
 }
 
 .contenido-exp a{
 
     display:inline-block;
-    margin-top:10px;
-    padding:12px 30px;
+
+    padding:12px 28px;
+
     background:#0077b6;
-    color:#fff;
-    text-decoration:none;
+
+    color:white;
+
     border-radius:50px;
-    font-weight:600;
-    transition:all .3s ease;
-    box-shadow:0 5px 15px rgba(0,119,182,.25);
+
+    text-decoration:none;
+
+    transition:.3s;
+
 }
 
 .contenido-exp a:hover{
 
-     background:#023e8a;
+    background:#023e8a;
 
-    transform:translateY(-3px);
-
-    box-shadow:0 10px 25px rgba(2,62,138,.35);
 }
 
 .modal-galeria{

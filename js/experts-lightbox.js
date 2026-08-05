@@ -7,7 +7,10 @@ const galerias = {
     playa: [
         "img/experiencias/playa/e10.jpg",
         "img/experiencias/playa/e11.jpg",
-        "img/experiencias/playa/e13.jpg"
+        "img/experiencias/playa/e13.jpg",
+        "img/experiencias/playa/e14.jpg",
+        "img/experiencias/playa/e15.jpg",
+        "img/experiencias/playa/e16.jpg"
     ],
 
     atardeceres: [
