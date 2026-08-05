@@ -4,6 +4,20 @@
 
 const listaHabitaciones = document.getElementById("listaHabitaciones");
 
+// ==========================================================
+// OCULTAR EN GITHUB PAGES
+// ==========================================================
+
+if (window.location.hostname === "alexato-coder.github.io") {
+
+    document.getElementById("habitaciones").style.display = "none";
+
+} else {
+
+    cargarHabitaciones();
+
+}
+
 async function cargarHabitaciones() {
 
     try {
@@ -50,4 +64,3 @@ async function cargarHabitaciones() {
     }
 }
 
-cargarHabitaciones();
