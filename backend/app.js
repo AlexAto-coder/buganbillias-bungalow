@@ -10,9 +10,17 @@ require("./config/database");
 app.use(cors());
 app.use(express.json());
 
+// ==========================
+// RUTAS
+// ==========================
+
 const habitacionRoutes = require("./routes/habitacionRoutes");
+const clienteRoutes = require("./routes/clienteRoutes");
 
 app.use("/api/habitaciones", habitacionRoutes);
+app.use("/api/clientes", clienteRoutes);
+
+// ==========================
 
 const PORT = process.env.PORT || 3000;
 
