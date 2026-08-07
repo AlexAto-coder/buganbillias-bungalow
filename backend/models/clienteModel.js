@@ -22,6 +22,15 @@ const obtenerClientePorId = (id, callback) => {
 
 };
 
+// Buscar cliente por correo
+const obtenerClientePorCorreo = (correo, callback) => {
+
+    const sql = "SELECT * FROM clientes WHERE correo = ?";
+
+    db.query(sql, [correo], callback);
+
+};
+
 // Crear un cliente
 const crearCliente = (datos, callback) => {
 
@@ -48,6 +57,7 @@ module.exports = {
 
     obtenerClientes,
     obtenerClientePorId,
+    obtenerClientePorCorreo,
     crearCliente
 
 };

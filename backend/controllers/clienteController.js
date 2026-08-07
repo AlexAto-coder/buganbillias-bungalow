@@ -3,6 +3,8 @@
 // ==========================================================
 
 const Cliente = require("../models/clienteModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Obtener todos los clientes
 const listarClientes = (req, res) => {
@@ -63,25 +65,123 @@ const obtenerCliente = (req, res) => {
 };
 
 // Crear cliente
-const registrarCliente = (req, res) => {
+const registrarCliente = async (req, res) => {
 
-    Cliente.crearCliente(req.body, (error, resultado) => {
+    try {
+
+        const datos = { ...req.body };
+
+        // Cifrar la contraseña
+        datos.password = await bcrypt.hash(datos.password, 10);
+
+        Cliente.crearCliente(datos, (error, resultado) => {
+
+            if (error) {
+
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: "No se pudo registrar el cliente",
+                    error
+                });
+
+            }
+
+            res.status(201).json({
+
+                ok: true,
+                mensaje: "Cliente registrado correctamente",
+                id: resultado.insertId
+
+            });
+
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            ok: false,
+            mensaje: "Error al cifrar la contraseña"
+        });
+
+    }
+
+};
+
+// ==========================================================
+// LOGIN DE CLIENTE
+// ==========================================================
+
+const loginCliente = (req, res) => {
+
+    const { correo, password } = req.body;
+
+    Cliente.obtenerClientePorCorreo(correo, async (error, resultados) => {
 
         if (error) {
 
             return res.status(500).json({
                 ok: false,
-                mensaje: "No se pudo registrar el cliente",
-                error
+                mensaje: "Error del servidor"
             });
 
         }
 
-        res.status(201).json({
+        if (resultados.length === 0) {
 
-            ok: true,
-            mensaje: "Cliente registrado correctamente",
-            id: resultado.insertId
+            return res.status(404).json({
+                ok: false,
+                mensaje: "Correo no registrado"
+            });
+
+        }
+
+        const cliente = resultados[0];
+
+        const passwordCorrecto = await bcrypt.compare(
+            password,
+            cliente.password
+        );
+
+        if (!passwordCorrecto) {
+
+            return res.status(401).json({
+                ok: false,
+                mensaje: "Contraseña incorrecta"
+            });
+
+        }
+
+       // Generar JWT
+const token = jwt.sign(
+
+    {
+        id: cliente.id,
+        correo: cliente.correo
+    },
+
+    process.env.JWT_SECRET,
+
+    {
+        expiresIn: "7d"
+    }
+
+);
+
+// Respuesta
+return res.json({
+
+    ok: true,
+    mensaje: "Inicio de sesión correcto",
+
+    token,
+
+    cliente: {
+
+        id: cliente.id,
+        nombres: cliente.nombres,
+        correo: cliente.correo
+
+             }
 
         });
 
@@ -89,10 +189,13 @@ const registrarCliente = (req, res) => {
 
 };
 
-module.exports = {
+// ==========================================================
+// EXPORTAR CONTROLADOR
+// ==========================================================
 
+module.exports = {
     listarClientes,
     obtenerCliente,
-    registrarCliente
-
+    registrarCliente,
+    loginCliente
 };
