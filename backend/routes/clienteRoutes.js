@@ -6,9 +6,10 @@ const express = require("express");
 const router = express.Router();
 
 const clienteController = require("../controllers/clienteController");
+const validarJWT = require("../middleware/validarJWT");
 
 // Obtener todos los clientes
-router.get("/", clienteController.listarClientes);
+router.get("/", validarJWT, clienteController.listarClientes);
 
 // Obtener un cliente por ID
 router.get("/:id", clienteController.obtenerCliente);
