@@ -34,6 +34,16 @@ const listarClientes = (req, res) => {
 const obtenerCliente = (req, res) => {
 
     const { id } = req.params;
+    const cliente_id = req.usuario.id;
+
+    if (Number(id) !== cliente_id) {
+
+        return res.status(403).json({
+            ok: false,
+            mensaje: "No tienes permiso para consultar este cliente"
+        });
+
+    }
 
     Cliente.obtenerClientePorId(id, (error, resultados) => {
 
@@ -63,7 +73,6 @@ const obtenerCliente = (req, res) => {
     });
 
 };
-
 // Crear cliente
 const registrarCliente = async (req, res) => {
 

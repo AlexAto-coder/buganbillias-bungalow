@@ -12,7 +12,7 @@ const validarJWT = require("../middleware/validarJWT");
 router.get("/", validarJWT, clienteController.listarClientes);
 
 // Obtener un cliente por ID
-router.get("/:id", clienteController.obtenerCliente);
+router.get("/:id", validarJWT, clienteController.obtenerCliente);
 
 // Registrar cliente
 router.post("/", clienteController.registrarCliente);

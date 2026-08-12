@@ -16,9 +16,11 @@ app.use(express.json());
 
 const habitacionRoutes = require("./routes/habitacionRoutes");
 const clienteRoutes = require("./routes/clienteRoutes");
+const reservaRoutes = require("./routes/reservaRoutes");
 
 app.use("/api/habitaciones", habitacionRoutes);
 app.use("/api/clientes", clienteRoutes);
+app.use("/api/reservas", reservaRoutes);
 
 // ==========================
 
