@@ -22,7 +22,7 @@ async function cargarHabitaciones() {
 
     try {
 
-        const respuesta = await fetch("http://localhost:3000/api/habitaciones");
+       const respuesta = await fetch(`${CONFIG.api.baseURL}/habitaciones`);
 
         const datos = await respuesta.json();
 

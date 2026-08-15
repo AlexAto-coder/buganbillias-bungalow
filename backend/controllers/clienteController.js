@@ -85,25 +85,27 @@ const registrarCliente = async (req, res) => {
 
         Cliente.crearCliente(datos, (error, resultado) => {
 
-            if (error) {
+    if (error) {
 
-                return res.status(500).json({
-                    ok: false,
-                    mensaje: "No se pudo registrar el cliente",
-                    error
-                });
+        console.error("ERROR AL REGISTRAR CLIENTE:", error);
 
-            }
-
-            res.status(201).json({
-
-                ok: true,
-                mensaje: "Cliente registrado correctamente",
-                id: resultado.insertId
-
-            });
-
+        return res.status(500).json({
+            ok: false,
+            mensaje: "No se pudo registrar el cliente",
+            error: error.message
         });
+
+    }
+
+    res.status(201).json({
+
+        ok: true,
+        mensaje: "Cliente registrado correctamente",
+        id: resultado.insertId
+
+    });
+
+});
 
     } catch (error) {
 

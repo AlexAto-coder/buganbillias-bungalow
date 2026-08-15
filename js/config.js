@@ -5,6 +5,10 @@
 
 const CONFIG = {
 
+    api: {
+        baseURL: "http://localhost:3000/api"
+    },
+
     hotel: {
 
         nombre: "Buganvillias Bungalows",
@@ -26,8 +30,6 @@ const CONFIG = {
     },
 
     reservas: {
-
-        precioNoche: 180,
 
         moneda: "S/",
 
