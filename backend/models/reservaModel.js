@@ -4,6 +4,7 @@
 
 const db = require("../config/database");
 
+
 // ==========================================================
 // CREAR RESERVA
 // ==========================================================
@@ -38,17 +39,21 @@ const crearReserva = (datos, callback) => {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [
-        codigo,
-        cliente_id,
-        habitacion_id,
-        fecha_ingreso,
-        fecha_salida,
-        noches,
-        personas,
-        precio_noche,
-        total
-    ], callback);
+    db.query(
+        sql,
+        [
+            codigo,
+            cliente_id,
+            habitacion_id,
+            fecha_ingreso,
+            fecha_salida,
+            noches,
+            personas,
+            precio_noche,
+            total
+        ],
+        callback
+    );
 };
 
 
@@ -85,7 +90,11 @@ const obtenerReservasPorCliente = (cliente_id, callback) => {
         ORDER BY r.created_at DESC
     `;
 
-    db.query(sql, [cliente_id], callback);
+    db.query(
+        sql,
+        [cliente_id],
+        callback
+    );
 };
 
 
@@ -121,7 +130,11 @@ const obtenerReservaPorId = (id, callback) => {
         WHERE r.id = ?
     `;
 
-    db.query(sql, [id], callback);
+    db.query(
+        sql,
+        [id],
+        callback
+    );
 };
 
 
@@ -131,15 +144,20 @@ const obtenerReservaPorId = (id, callback) => {
 
 const cancelarReserva = (id, callback) => {
 
-     const sql = `
+    const sql = `
         UPDATE reservas
         SET estado = 'cancelado'
         WHERE id = ?
         AND estado <> 'cancelado'
     `;
 
-    db.query(sql, [id], callback);
+    db.query(
+        sql,
+        [id],
+        callback
+    );
 };
+
 
 // ==========================================================
 // VERIFICAR DISPONIBILIDAD DE HABITACIÓN
@@ -172,6 +190,36 @@ const verificarDisponibilidad = (
     );
 };
 
+
+// ==========================================================
+// OBTENER RESERVAS PARA EL CALENDARIO
+// ==========================================================
+
+const obtenerReservasCalendario = (
+    habitacion_id,
+    callback
+) => {
+
+    const sql = `
+        SELECT
+            id,
+            fecha_ingreso,
+            fecha_salida,
+            estado
+        FROM reservas
+        WHERE habitacion_id = ?
+        AND estado IN ('pendiente', 'pagado')
+        ORDER BY fecha_ingreso ASC
+    `;
+
+    db.query(
+        sql,
+        [habitacion_id],
+        callback
+    );
+};
+
+
 // ==========================================================
 // EXPORTAR FUNCIONES
 // ==========================================================
@@ -181,5 +229,6 @@ module.exports = {
     obtenerReservasPorCliente,
     obtenerReservaPorId,
     cancelarReserva,
-    verificarDisponibilidad
+    verificarDisponibilidad,
+    obtenerReservasCalendario
 };

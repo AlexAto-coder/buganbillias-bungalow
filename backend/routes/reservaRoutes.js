@@ -22,6 +22,12 @@ router.get(
     reservaController.misReservas
 );
 
+// Obtener reservas para el calendario
+router.get(
+    "/disponibilidad/:habitacion_id",
+    reservaController.disponibilidad
+);
+
 // Obtener una reserva específica
 router.get(
     "/:id",

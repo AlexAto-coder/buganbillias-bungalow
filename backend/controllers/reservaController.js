@@ -5,6 +5,7 @@
 const Reserva = require("../models/reservaModel");
 const Habitacion = require("../models/habitacionModel");
 
+
 // ==========================================================
 // CREAR RESERVA
 // ==========================================================
@@ -135,7 +136,8 @@ const crearReserva = (req, res) => {
 
                 return res.status(400).json({
                     ok: false,
-                    mensaje: `La habitación tiene capacidad para ${habitacion.capacidad} personas`
+                    mensaje:
+                        `La habitación tiene capacidad para ${habitacion.capacidad} personas`
                 });
 
             }
@@ -165,7 +167,8 @@ const crearReserva = (req, res) => {
 
                         return res.status(409).json({
                             ok: false,
-                            mensaje: "La habitación no está disponible para esas fechas"
+                            mensaje:
+                                "La habitación no está disponible para esas fechas"
                         });
 
                     }
@@ -175,11 +178,11 @@ const crearReserva = (req, res) => {
                     // CALCULAR PRECIO
                     // --------------------------------------------------
 
-                    const precio_noche = Number(
-                        habitacion.precio_noche
-                    );
+                    const precio_noche =
+                        Number(habitacion.precio_noche);
 
-                    const total = precio_noche * noches;
+                    const total =
+                        precio_noche * noches;
 
 
                     // --------------------------------------------------
@@ -228,7 +231,8 @@ const crearReserva = (req, res) => {
                             return res.status(201).json({
 
                                 ok: true,
-                                mensaje: "Reserva creada correctamente",
+                                mensaje:
+                                    "Reserva creada correctamente",
 
                                 reserva: {
 
@@ -294,6 +298,38 @@ const misReservas = (req, res) => {
 
 
 // ==========================================================
+// OBTENER RESERVAS PARA EL CALENDARIO
+// ==========================================================
+
+const disponibilidad = (req, res) => {
+
+    const { habitacion_id } = req.params;
+
+    Reserva.obtenerReservasCalendario(
+        habitacion_id,
+        (error, resultados) => {
+
+            if (error) {
+
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: "Error al obtener la disponibilidad"
+                });
+
+            }
+
+            return res.json({
+                ok: true,
+                reservas: resultados
+            });
+
+        }
+    );
+
+};
+
+
+// ==========================================================
 // OBTENER RESERVA POR ID
 // ==========================================================
 
@@ -330,11 +366,13 @@ const obtenerReserva = (req, res) => {
 
 
             // El cliente solo puede consultar sus propias reservas
+
             if (reserva.cliente_id !== cliente_id) {
 
                 return res.status(403).json({
                     ok: false,
-                    mensaje: "No tienes permiso para consultar esta reserva"
+                    mensaje:
+                        "No tienes permiso para consultar esta reserva"
                 });
 
             }
@@ -392,7 +430,8 @@ const cancelarReserva = (req, res) => {
 
                 return res.status(403).json({
                     ok: false,
-                    mensaje: "No tienes permiso para cancelar esta reserva"
+                    mensaje:
+                        "No tienes permiso para cancelar esta reserva"
                 });
 
             }
@@ -409,30 +448,35 @@ const cancelarReserva = (req, res) => {
 
 
             Reserva.cancelarReserva(
-               id,
+                id,
                 (error, resultado) => {
 
-                if (error) {
+                    if (error) {
 
-                    return res.status(500).json({
-                    ok: false,
-                    mensaje: "No se pudo cancelar la reserva"
-            });
+                        return res.status(500).json({
+                            ok: false,
+                            mensaje:
+                                "No se pudo cancelar la reserva"
+                        });
 
-        }
+                    }
 
-        if (resultado.affectedRows === 0) {
 
-            return res.status(400).json({
-                ok: false,
-                mensaje: "La reserva ya está cancelada"
-            });
+                    if (resultado.affectedRows === 0) {
 
-        }
+                        return res.status(400).json({
+                            ok: false,
+                            mensaje:
+                                "La reserva ya está cancelada"
+                        });
 
-        return res.json({
-            ok: true,
-            mensaje: "Reserva cancelada correctamente"
+                    }
+
+
+                    return res.json({
+                        ok: true,
+                        mensaje:
+                            "Reserva cancelada correctamente"
                     });
 
                 }
@@ -451,6 +495,7 @@ const cancelarReserva = (req, res) => {
 module.exports = {
     crearReserva,
     misReservas,
+    disponibilidad,
     obtenerReserva,
     cancelarReserva
 };

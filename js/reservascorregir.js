@@ -472,92 +472,67 @@ function actualizarResumen() {
 
 
 // ==========================================================
+// RESERVAS TEMPORALES
 // ==========================================================
-// RESERVAS DESDE LA API
-// ==========================================================
-
-let reservasExistentes = [];
-
-
-// ==========================================================
-// CARGAR RESERVAS PARA EL CALENDARIO
+// POR AHORA mantenemos localStorage.
+// Más adelante lo reemplazaremos por la API.
 // ==========================================================
 
-async function cargarReservasCalendario() {
+const RESERVAS_KEY =
+    "reservasBuganvillias";
 
-    const habitacionData =
-        obtenerHabitacionSeleccionada();
 
-    if (!habitacionData) {
+const reservasIniciales = [
 
-        reservasExistentes = [];
+    {
+        inicio: "2026-02-10",
+        fin: "2026-02-14"
+    },
 
-        generarCalendario();
-
-        return;
-
+    {
+        inicio: "2026-02-20",
+        fin: "2026-02-22"
     }
 
-
-    try {
-
-        const respuesta = await fetch(
-            `${CONFIG.api.baseURL}/reservas/disponibilidad/${habitacionData.id}`
-        );
-
-        const datos =
-            await respuesta.json();
+];
 
 
-        if (!respuesta.ok || !datos.ok) {
-
-            throw new Error(
-                datos.mensaje ||
-                "No se pudieron cargar las reservas"
-            );
-
-        }
+let reservasExistentes =
+    JSON.parse(
+        localStorage.getItem(
+            RESERVAS_KEY
+        )
+    ) || reservasIniciales;
 
 
-        reservasExistentes =
-            (datos.reservas || []).map(
-                reserva => ({
+// ==========================================================
+// GUARDAR RESERVAS
+// ==========================================================
 
-                    inicio:
-                        reserva.fecha_ingreso
-                            .toString()
-                            .substring(0, 10),
+function guardarReservas() {
 
-                    fin:
-                        reserva.fecha_salida
-                            .toString()
-                            .substring(0, 10)
+    localStorage.setItem(
+        RESERVAS_KEY,
+        JSON.stringify(
+            reservasExistentes
+        )
+    );
 
-                })
-            );
+}
 
 
-        generarCalendario();
+if (
+    !localStorage.getItem(
+        RESERVAS_KEY
+    )
+) {
 
-
-    } catch (error) {
-
-        console.error(
-            "Error al cargar reservas:",
-            error
-        );
-
-        reservasExistentes = [];
-
-        generarCalendario();
-
-    }
+    guardarReservas();
 
 }
 
 
 // ==========================================================
-
 // NORMALIZAR FECHA
 // ==========================================================
 
@@ -860,11 +835,9 @@ function validarDisponibilidad() {
 
 habitacion.addEventListener(
     "change",
-    async () => {
+    () => {
 
         actualizarResumen();
-
-        await cargarReservasCalendario();
 
         validarDisponibilidad();
 
@@ -1216,13 +1189,6 @@ formReserva.addEventListener(
 
             mensajeReserva.style.color =
                 "green";
-
-
-            // ==================================================
-            // ACTUALIZAR CALENDARIO DESDE LA API
-            // ==================================================
-
-            await cargarReservasCalendario();
 
 
             // ==================================================
@@ -1620,19 +1586,13 @@ personas.addEventListener(
 // INICIALIZACIÓN
 // ==========================================================
 
-async function inicializarReservas() {
+establecerMinFecha();
 
-    establecerMinFecha();
+cargarHabitacionesReserva();
 
-    await cargarHabitacionesReserva();
+generarCalendario();
 
-    generarCalendario();
-
-    actualizarResumen();
-
-}
-
-inicializarReservas();
+actualizarResumen();
 
 
 // ==========================================================
