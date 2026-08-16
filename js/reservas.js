@@ -1013,15 +1013,69 @@ formReserva.addEventListener(
 
         if (!token) {
 
-            mensajeReserva.textContent =
-                "⚠️ Debes iniciar sesión para realizar una reserva.";
+    // ==================================================
+    // GUARDAR LOS DATOS DE LA RESERVA TEMPORALMENTE
+    // ==================================================
 
-            mensajeReserva.style.color =
-                "red";
+    const reservaPendiente = {
 
-            return;
+        nombre:
+            nombre.value,
 
-        }
+        email:
+            email.value,
+
+        telefono:
+            telefono.value,
+
+        habitacion_id:
+            habitacion.value,
+
+        fechaIngreso:
+            fechaInicio.value,
+
+        fechaSalida:
+            fechaFin.value,
+
+        personas:
+            personas.value
+
+    };
+
+
+    sessionStorage.setItem(
+        "reservaPendiente",
+        JSON.stringify(reservaPendiente)
+    );
+
+
+    // ==================================================
+    // MOSTRAR OPCIONES DE AUTENTICACIÓN
+    // ==================================================
+
+    mensajeReserva.innerHTML = `
+        ⚠️ <strong>Para confirmar tu reserva necesitas iniciar sesión.</strong>
+        <br><br>
+
+        <a href="login.html">
+            🔐 Iniciar sesión
+        </a>
+
+        &nbsp; | &nbsp;
+
+        <a href="registro.html">
+            👤 Crear una cuenta
+        </a>
+    `;
+
+
+    mensajeReserva.style.color =
+        "red";
+
+
+    return;
+
+}
 
 
         // ==================================================
@@ -1200,53 +1254,338 @@ formReserva.addEventListener(
             }
 
 
-            // ==================================================
-            // RESERVA CREADA CORRECTAMENTE
-            // ==================================================
+         // ==================================================
+// RESERVA CREADA CORRECTAMENTE
+// ==================================================
 
-            mensajeReserva.innerHTML = `
-                🎉 <strong>Reserva creada correctamente.</strong><br>
-                Código: ${
-                    datos.codigo ||
-                    datos.reserva?.codigo ||
-                    "Generado correctamente"
-                }
-            `;
+const codigoReserva =
+    datos.codigo ||
+    datos.reserva?.codigo ||
+    "Generado correctamente";
 
 
-            mensajeReserva.style.color =
-                "green";
+// ==================================================
+// PREPARAR DATOS PARA LA CONFIRMACIÓN
+// ==================================================
+
+const nombreCliente =
+    nombre.value;
+
+const emailCliente =
+    email.value;
+
+const telefonoCliente =
+    telefono.value;
+
+const nombreHabitacion =
+    habitacionData.nombre;
+
+const personasReserva =
+    Number(personas.value);
 
 
-            // ==================================================
-            // ACTUALIZAR CALENDARIO DESDE LA API
-            // ==================================================
+// ==================================================
+// MENSAJE DE CONFIRMACIÓN
+// ==================================================
 
-            await cargarReservasCalendario();
+mensajeReserva.innerHTML = `
+
+    <div class="confirmacion-reserva">
+
+        <h3>
+            🎉 Reserva creada correctamente
+        </h3>
+
+        <p>
+            <strong>Código de reserva:</strong>
+            ${codigoReserva}
+        </p>
+
+        <hr>
+
+        <p>
+            <strong>Cliente:</strong>
+            ${nombreCliente}
+        </p>
+
+        <p>
+            <strong>Correo:</strong>
+            ${emailCliente}
+        </p>
+
+        <p>
+            <strong>Teléfono:</strong>
+            ${telefonoCliente}
+        </p>
+
+        <hr>
+
+        <p>
+            <strong>Habitación:</strong>
+            ${nombreHabitacion}
+        </p>
+
+        <p>
+            <strong>Ingreso:</strong>
+            ${fechaIngreso}
+        </p>
+
+        <p>
+            <strong>Salida:</strong>
+            ${fechaSalida}
+        </p>
+
+        <p>
+            <strong>Noches:</strong>
+            ${noches}
+        </p>
+
+        <p>
+            <strong>Personas:</strong>
+            ${personasReserva}
+        </p>
+
+        <p>
+            <strong>Precio por noche:</strong>
+            S/${precioNoche.toFixed(2)}
+        </p>
+
+        <hr>
+
+        <h3>
+            TOTAL: S/${total.toFixed(2)}
+        </h3>
+
+        <p>
+            <strong>Estado:</strong>
+            Pendiente de pago
+        </p>
+
+        <br>
+
+        <button
+            type="button"
+            id="btnDescargarReserva"
+        >
+            📄 Descargar comprobante
+        </button>
+
+        <button
+            type="button"
+            id="btnWhatsAppReserva"
+        >
+            📱 Enviar por WhatsApp
+        </button>
+
+    </div>
+
+`;
 
 
-            // ==================================================
-            // LIMPIAR FORMULARIO
-            // ==================================================
-
-            formReserva.reset();
+mensajeReserva.style.color =
+    "inherit";
 
 
-            btnConfirmar.disabled =
-                true;
+// ==================================================
+// DESACTIVAR BOTÓN DE RESERVA
+// ==================================================
 
-            btnConfirmar.textContent =
-                "Confirmar reserva";
+btnConfirmar.disabled =
+    true;
+
+btnConfirmar.textContent =
+    "Reserva registrada";
 
 
-            actualizarResumen();
+// ==================================================
+// MENSAJE PARA WHATSAPP
+// ==================================================
+
+const mensajeWhatsApp =
+
+`Hola, Buganvillias Bungalows.
+
+Deseo confirmar mi reserva:
+
+Código: ${codigoReserva}
+
+Cliente: ${nombreCliente}
+Correo: ${emailCliente}
+Teléfono: ${telefonoCliente}
+
+Habitación: ${nombreHabitacion}
+Ingreso: ${fechaIngreso}
+Salida: ${fechaSalida}
+Noches: ${noches}
+Personas: ${personasReserva}
+
+Precio por noche: S/${precioNoche.toFixed(2)}
+TOTAL: S/${total.toFixed(2)}
+
+Estado: Pendiente de pago.`;
 
 
-            console.log(
-                "Reserva creada:",
-                datos
+const urlWhatsApp =
+    `https://wa.me/?text=${encodeURIComponent(
+        mensajeWhatsApp
+    )}`;
+
+
+// ==================================================
+// BOTÓN WHATSAPP
+// ==================================================
+
+const btnWhatsAppReserva =
+    document.getElementById(
+        "btnWhatsAppReserva"
+    );
+
+
+if (btnWhatsAppReserva) {
+
+    btnWhatsAppReserva.addEventListener(
+        "click",
+        () => {
+
+            window.open(
+                urlWhatsApp,
+                "_blank"
             );
 
+        }
+    );
+
+}
+
+
+// ==================================================
+// BOTÓN DESCARGAR COMPROBANTE
+// ==================================================
+
+const btnDescargarReserva =
+    document.getElementById(
+        "btnDescargarReserva"
+    );
+
+
+if (btnDescargarReserva) {
+
+    btnDescargarReserva.addEventListener(
+        "click",
+        () => {
+
+            const comprobante =
+
+`BUGANVILLIAS BUNGALOWS
+COMPROBANTE DE RESERVA
+================================
+
+Código de reserva: ${codigoReserva}
+
+CLIENTE
+--------------------------------
+Nombre: ${nombreCliente}
+Correo: ${emailCliente}
+Teléfono: ${telefonoCliente}
+
+RESERVA
+--------------------------------
+Habitación: ${nombreHabitacion}
+Fecha de ingreso: ${fechaIngreso}
+Fecha de salida: ${fechaSalida}
+Noches: ${noches}
+Personas: ${personasReserva}
+
+PRECIO
+--------------------------------
+Precio por noche: S/${precioNoche.toFixed(2)}
+TOTAL: S/${total.toFixed(2)}
+
+Estado: Pendiente de pago
+
+================================
+Gracias por elegir
+Buganvillias Bungalows.
+`;
+
+
+            const archivo =
+                new Blob(
+                    [comprobante],
+                    {
+                        type:
+                            "text/plain;charset=utf-8"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(
+                    archivo
+                );
+
+
+            const enlace =
+                document.createElement(
+                    "a"
+                );
+
+
+            enlace.href =
+                url;
+
+            enlace.download =
+                `reserva-${codigoReserva}.txt`;
+
+
+            document.body.appendChild(
+                enlace
+            );
+
+
+            enlace.click();
+
+
+            document.body.removeChild(
+                enlace
+            );
+
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// ACTUALIZAR CALENDARIO DESDE LA API
+// ==================================================
+
+await cargarReservasCalendario();
+
+
+// ==================================================
+// LIMPIAR FORMULARIO
+// ==================================================
+
+formReserva.reset();
+
+
+// ==================================================
+// ACTUALIZAR RESUMEN
+// ==================================================
+
+actualizarResumen();
+
+
+console.log(
+    "Reserva creada:",
+    datos
+);
 
         } catch (error) {
 
@@ -1615,6 +1954,138 @@ personas.addEventListener(
     actualizarResumen
 );
 
+// ==========================================================
+// RECUPERAR RESERVA PENDIENTE DESPUÉS DEL LOGIN
+// ==========================================================
+
+function recuperarReservaPendiente() {
+
+    const reservaGuardada =
+        sessionStorage.getItem(
+            "reservaPendiente"
+        );
+
+
+    if (!reservaGuardada) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const reserva =
+            JSON.parse(
+                reservaGuardada
+            );
+
+
+        // ==================================================
+        // RESTAURAR DATOS DEL CLIENTE
+        // ==================================================
+
+        if (reserva.nombre) {
+
+            nombre.value =
+                reserva.nombre;
+
+        }
+
+
+        if (reserva.email) {
+
+            email.value =
+                reserva.email;
+
+        }
+
+
+        if (reserva.telefono) {
+
+            telefono.value =
+                reserva.telefono;
+
+        }
+
+
+        // ==================================================
+        // RESTAURAR HABITACIÓN
+        // ==================================================
+
+        if (reserva.habitacion_id) {
+
+            habitacion.value =
+                reserva.habitacion_id;
+
+        }
+
+
+        // ==================================================
+        // RESTAURAR FECHAS
+        // ==================================================
+
+        if (reserva.fechaIngreso) {
+
+            fechaInicio.value =
+                reserva.fechaIngreso;
+
+        }
+
+
+        if (reserva.fechaSalida) {
+
+            fechaFin.value =
+                reserva.fechaSalida;
+
+        }
+
+
+        // ==================================================
+        // RESTAURAR PERSONAS
+        // ==================================================
+
+        if (reserva.personas) {
+
+            personas.value =
+                reserva.personas;
+
+        }
+
+
+        // ==================================================
+        // ACTUALIZAR INTERFAZ
+        // ==================================================
+
+        actualizarResumen();
+
+        validarDisponibilidad();
+
+
+        // ==================================================
+        // ELIMINAR RESERVA PENDIENTE
+        // ==================================================
+
+        sessionStorage.removeItem(
+            "reservaPendiente"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error al recuperar la reserva pendiente:",
+            error
+        );
+
+        sessionStorage.removeItem(
+            "reservaPendiente"
+        );
+
+    }
+
+}
+
 
 // ==========================================================
 // INICIALIZACIÓN
@@ -1624,16 +2095,26 @@ async function inicializarReservas() {
 
     establecerMinFecha();
 
+    // Cargar habitaciones primero
     await cargarHabitacionesReserva();
 
+    // Generar calendario
     generarCalendario();
 
+    // Actualizar resumen
     actualizarResumen();
+
+    // Recuperar reserva pendiente después del login
+    recuperarReservaPendiente();
 
 }
 
-inicializarReservas();
 
+// ==========================================================
+// INICIAR SISTEMA DE RESERVAS
+// ==========================================================
+
+inicializarReservas();
 
 // ==========================================================
 // OCULTAR HERRAMIENTAS EN GITHUB PAGES
