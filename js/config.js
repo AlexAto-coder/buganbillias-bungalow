@@ -6,7 +6,7 @@
 const CONFIG = {
 
     api: {
-    baseURL: "https://buganvillias-bungalow.onrender.com/api"
+    baseURL: "https://buganbillias-bungalow.onrender.com/api"
 },
 
     hotel: {
