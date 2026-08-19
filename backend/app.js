@@ -10,6 +10,13 @@ require("./config/database");
 app.use(cors());
 app.use(express.json());
 
+app.get("/api/prueba", (req, res) => {
+    res.json({
+        ok: true,
+        mensaje: "Backend de Buganvillias funcionando en Render"
+    });
+});
+
 // ==========================
 // RUTAS
 // ==========================
