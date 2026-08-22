@@ -1152,3 +1152,643 @@ footer{
     padding:0 15px 15px;
 
 }
+
+/* ==========================================================
+   LOGIN DE CLIENTE
+   ========================================================== */
+
+.login-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f6ff 0%,
+            #ffffff 50%,
+            #eef8ff 100%
+        );
+}
+
+
+/* TARJETA */
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 45px 40px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.10);
+
+    text-align: center;
+}
+
+
+/* LOGO */
+
+.login-logo {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1edff;
+
+    font-size: 32px;
+}
+
+
+.login-card h1 {
+    margin: 0;
+
+    font-size: 30px;
+
+    font-weight: 600;
+
+    color: #7564c4;
+}
+
+
+.login-subtitulo {
+    margin: 0 0 30px;
+
+    font-size: 17px;
+
+    color: #888;
+
+    letter-spacing: 2px;
+}
+
+
+.login-card h2 {
+    margin: 0 0 8px;
+
+    font-size: 25px;
+
+    color: #333;
+}
+
+
+.login-descripcion {
+    margin: 0 0 30px;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* FORMULARIO */
+
+.login-form {
+    text-align: left;
+}
+
+
+.campo-login {
+    margin-bottom: 20px;
+}
+
+
+.campo-login label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #444;
+}
+
+
+.campo-login input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+
+.campo-login input:focus {
+    border-color: #7564c4;
+
+    box-shadow:
+        0 0 0 3px rgba(117, 100, 196, 0.12);
+}
+
+
+/* CONTRASEÑA */
+
+.password-container {
+    position: relative;
+}
+
+
+.password-container input {
+    padding-right: 50px;
+}
+
+
+.btn-mostrar-password {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    padding: 5px;
+}
+
+
+/* BOTÓN LOGIN */
+
+.btn-login {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #7564c4;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.btn-login:hover {
+    background: #6553b4;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(117, 100, 196, 0.25);
+}
+
+
+.btn-login:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* MENSAJES */
+
+.login-mensaje {
+    min-height: 22px;
+    margin: 15px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: #d93025;
+    font-weight: 500;
+}
+
+
+/* ENLACES */
+
+.login-enlaces {
+    margin-top: 28px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #777;
+}
+
+
+.login-enlaces p {
+    margin: 5px 0;
+}
+
+
+.login-enlaces a {
+    text-decoration: none;
+
+    color: #7564c4;
+
+    font-weight: 600;
+}
+
+
+.login-enlaces a:hover {
+    text-decoration: underline;
+}
+
+
+.crear-cuenta {
+    display: inline-block;
+
+    margin-top: 4px;
+}
+
+
+.separador {
+    height: 1px;
+
+    margin: 22px 0;
+
+    background: #eeeeee;
+}
+
+
+.volver-inicio {
+    font-weight: 400 !important;
+
+    color: #777 !important;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        padding: 25px 15px;
+    }
+
+    .login-card {
+        padding: 35px 25px;
+
+        border-radius: 20px;
+    }
+
+    .login-card h1 {
+        font-size: 26px;
+    }
+
+    .login-card h2 {
+        font-size: 22px;
+    }
+
+}
+
+/* ==========================================================
+   REGISTRO DE CLIENTE
+   ========================================================== */
+
+.registro-card {
+    max-width: 600px;
+}
+
+
+.registro-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0 18px;
+}
+
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+
+.ayuda-password {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .registro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-completo {
+        grid-column: auto;
+    }
+
+}
+
+/* ==========================================================
+   MI CUENTA
+   ========================================================== */
+
+.cuenta-container {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 40px 20px;
+
+    background: #f8f7fc;
+}
+
+
+.cuenta-card {
+    width: 100%;
+
+    max-width: 650px;
+
+    background: #fff;
+
+    border-radius: 24px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+
+.cuenta-logo {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0eaff;
+
+    font-size: 36px;
+}
+
+
+.cuenta-card h1 {
+    margin: 0;
+
+    color: #7863c7;
+
+    font-size: 30px;
+}
+
+
+.cuenta-subtitulo {
+    margin: 0 0 30px;
+
+    color: #777;
+
+    letter-spacing: 2px;
+}
+
+
+.cuenta-bienvenida {
+    margin-bottom: 30px;
+}
+
+
+.cuenta-bienvenida h2 {
+    margin-bottom: 8px;
+
+    font-size: 24px;
+}
+
+
+.cuenta-bienvenida p {
+    margin: 0;
+
+    color: #777;
+}
+
+
+/* INFORMACIÓN */
+
+.perfil-section {
+    text-align: left;
+
+    padding: 25px;
+
+    border: 1px solid #eee;
+
+    border-radius: 18px;
+
+    background: #fafafa;
+}
+
+
+.perfil-section h3 {
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: #444;
+}
+
+
+.perfil-datos {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+.perfil-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.perfil-label {
+    font-size: 13px;
+
+    color: #777;
+}
+
+
+.perfil-valor {
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: #333;
+
+    word-break: break-word;
+}
+
+
+/* BOTONES */
+
+.cuenta-acciones {
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 25px;
+}
+
+
+.btn-cuenta {
+    flex: 1;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 14px 18px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s,
+        opacity 0.2s;
+}
+
+
+.btn-cuenta:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+}
+
+
+.btn-reserva {
+    background: #7863c7;
+
+    color: white;
+}
+
+
+.btn-cerrar {
+    background: #eee;
+
+    color: #555;
+}
+
+
+/* MENSAJE */
+
+.cuenta-mensaje {
+    margin-top: 20px;
+
+    color: #d33;
+
+    font-size: 14px;
+}
+
+
+/* VOLVER */
+
+.cuenta-volver {
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee;
+}
+
+
+.cuenta-volver a {
+    color: #7863c7;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .cuenta-container {
+        padding: 20px 12px;
+    }
+
+
+    .cuenta-card {
+        padding: 28px 20px;
+
+        border-radius: 18px;
+    }
+
+
+    .cuenta-acciones {
+        flex-direction: column;
+    }
+
+}

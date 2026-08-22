@@ -2,71 +2,207 @@
 // REGISTRO DE CLIENTE
 // ==========================================================
 
-const registroForm = document.getElementById("registroForm");
+const registroForm =
+    document.getElementById("registroForm");
 
-const mensajeRegistro = document.getElementById("mensajeRegistro");
+const mensajeRegistro =
+    document.getElementById("mensajeRegistro");
 
-const btnRegistro = document.getElementById("btnRegistro");
+const btnRegistro =
+    document.getElementById("btnRegistro");
 
+const passwordInput =
+    document.getElementById("password");
+
+const btnMostrarPassword =
+    document.getElementById("btnMostrarPassword");
+
+
+// ==========================================================
+// MOSTRAR / OCULTAR CONTRASEÑA
+// ==========================================================
+
+btnMostrarPassword.addEventListener("click", () => {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        btnMostrarPassword.textContent = "🙈";
+
+        btnMostrarPassword.setAttribute(
+            "aria-label",
+            "Ocultar contraseña"
+        );
+
+    } else {
+
+        passwordInput.type = "password";
+
+        btnMostrarPassword.textContent = "👁";
+
+        btnMostrarPassword.setAttribute(
+            "aria-label",
+            "Mostrar contraseña"
+        );
+
+    }
+
+});
+
+
+// ==========================================================
+// ENVIAR FORMULARIO
+// ==========================================================
 
 registroForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
 
+    // ======================================================
+    // OBTENER DATOS
+    // ======================================================
+
     const nombres =
-        document.getElementById("nombres").value.trim();
+        document
+            .getElementById("nombres")
+            .value
+            .trim();
 
     const apellidos =
-        document.getElementById("apellidos").value.trim();
+        document
+            .getElementById("apellidos")
+            .value
+            .trim();
 
     const dni =
-        document.getElementById("dni").value.trim();
+        document
+            .getElementById("dni")
+            .value
+            .trim();
 
     const correo =
-        document.getElementById("correo").value.trim();
+        document
+            .getElementById("correo")
+            .value
+            .trim();
 
     const telefono =
-        document.getElementById("telefono").value.trim();
+        document
+            .getElementById("telefono")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("password").value;
+        passwordInput.value;
 
+
+    // ======================================================
+    // LIMPIAR MENSAJE
+    // ======================================================
 
     mensajeRegistro.textContent = "";
 
+
+    // ======================================================
+    // VALIDAR DNI
+    // ======================================================
+
+    if (!/^\d{8}$/.test(dni)) {
+
+        mensajeRegistro.textContent =
+            "El DNI debe tener exactamente 8 dígitos.";
+
+        return;
+    }
+
+
+    // ======================================================
+    // VALIDAR TELÉFONO
+    // ======================================================
+
+    if (!/^9\d{8}$/.test(telefono)) {
+
+        mensajeRegistro.textContent =
+            "El teléfono debe tener 9 dígitos y comenzar con 9.";
+
+        return;
+    }
+
+
+    // ======================================================
+    // VALIDAR CONTRASEÑA
+    // ======================================================
+
+    if (password.length < 8) {
+
+        mensajeRegistro.textContent =
+            "La contraseña debe tener al menos 8 caracteres.";
+
+        return;
+    }
+
+
+    // ======================================================
+    // DESACTIVAR BOTÓN
+    // ======================================================
+
     btnRegistro.disabled = true;
 
-    btnRegistro.textContent = "Registrando...";
+    btnRegistro.textContent =
+        "Registrando...";
 
 
     try {
 
-        const respuesta = await fetch(
-            `${CONFIG.api.baseURL}/clientes`,
-            {
-                method: "POST",
+        // ==================================================
+        // ENVIAR AL BACKEND
+        // ==================================================
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        const respuesta =
+            await fetch(
+                `${CONFIG.api.baseURL}/clientes`,
+                {
 
-                body: JSON.stringify({
-                    nombres,
-                    apellidos,
-                    dni,
-                    correo,
-                    password,
-                    telefono
-                })
-            }
-        );
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        nombres,
+                        apellidos,
+                        dni,
+                        correo,
+                        password,
+                        telefono
+
+                    })
+
+                }
+            );
 
 
-        const datos = await respuesta.json();
+        // ==================================================
+        // LEER RESPUESTA
+        // ==================================================
+
+        const datos =
+            await respuesta.json();
 
 
-        if (!respuesta.ok || !datos.ok) {
+        // ==================================================
+        // ERROR
+        // ==================================================
+
+        if (
+            !respuesta.ok ||
+            !datos.ok
+        ) {
 
             mensajeRegistro.textContent =
                 datos.mensaje ||
@@ -74,14 +210,20 @@ registroForm.addEventListener("submit", async (event) => {
 
             btnRegistro.disabled = false;
 
-            btnRegistro.textContent = "Crear cuenta";
+            btnRegistro.textContent =
+                "Crear cuenta";
 
             return;
+
         }
 
 
+        // ==================================================
+        // REGISTRO CORRECTO
+        // ==================================================
+
         mensajeRegistro.textContent =
-            "Cuenta creada correctamente";
+            "Cuenta creada correctamente.";
 
 
         // ==================================================
@@ -90,7 +232,8 @@ registroForm.addEventListener("submit", async (event) => {
 
         setTimeout(() => {
 
-            window.location.href = "login.html";
+            window.location.href =
+                "login.html";
 
         }, 1200);
 
@@ -102,12 +245,15 @@ registroForm.addEventListener("submit", async (event) => {
             error
         );
 
+
         mensajeRegistro.textContent =
             "No se pudo conectar con el servidor.";
 
+
         btnRegistro.disabled = false;
 
-        btnRegistro.textContent = "Crear cuenta";
+        btnRegistro.textContent =
+            "Crear cuenta";
 
     }
 

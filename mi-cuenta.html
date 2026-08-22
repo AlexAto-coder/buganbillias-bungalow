@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mi cuenta - Buganvillias Bungalows</title>
+
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+<body>
+
+    <main class="cuenta-container">
+
+        <section class="cuenta-card">
+
+            <!-- LOGO -->
+
+            <div class="cuenta-logo">
+                🏡
+            </div>
+
+            <h1>Buganvillias</h1>
+
+            <p class="cuenta-subtitulo">
+                Bungalows
+            </p>
+
+
+            <!-- SALUDO -->
+
+            <div class="cuenta-bienvenida">
+
+                <h2>
+                    Hola, <span id="nombreCliente">...</span> 👋
+                </h2>
+
+                <p>
+                    Bienvenido a tu cuenta.
+                </p>
+
+            </div>
+
+
+            <!-- INFORMACIÓN PERSONAL -->
+
+            <section class="perfil-section">
+
+                <h3>
+                    👤 Mi información
+                </h3>
+
+
+                <div class="perfil-datos">
+
+                    <div class="perfil-item">
+
+                        <span class="perfil-label">
+                            Nombres
+                        </span>
+
+                        <span
+                            id="datosNombres"
+                            class="perfil-valor"
+                        >
+                            Cargando...
+                        </span>
+
+                    </div>
+
+
+                    <div class="perfil-item">
+
+                        <span class="perfil-label">
+                            Apellidos
+                        </span>
+
+                        <span
+                            id="datosApellidos"
+                            class="perfil-valor"
+                        >
+                            Cargando...
+                        </span>
+
+                    </div>
+
+
+                    <div class="perfil-item">
+
+                        <span class="perfil-label">
+                            DNI
+                        </span>
+
+                        <span
+                            id="datosDni"
+                            class="perfil-valor"
+                        >
+                            Cargando...
+                        </span>
+
+                    </div>
+
+
+                    <div class="perfil-item">
+
+                        <span class="perfil-label">
+                            Correo electrónico
+                        </span>
+
+                        <span
+                            id="datosCorreo"
+                            class="perfil-valor"
+                        >
+                            Cargando...
+                        </span>
+
+                    </div>
+
+
+                    <div class="perfil-item">
+
+                        <span class="perfil-label">
+                            Teléfono
+                        </span>
+
+                        <span
+                            id="datosTelefono"
+                            class="perfil-valor"
+                        >
+                            Cargando...
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ACCIONES -->
+
+            <div class="cuenta-acciones">
+
+                <a
+                    href="index.html#reservas"
+                    class="btn-cuenta btn-reserva"
+                >
+                    🏨 Nueva reserva
+                </a>
+
+
+                <button
+                    type="button"
+                    id="btnCerrarSesion"
+                    class="btn-cuenta btn-cerrar"
+                >
+                    🚪 Cerrar sesión
+                </button>
+
+            </div>
+
+
+            <!-- MENSAJE -->
+
+            <p
+                id="mensajeCuenta"
+                class="cuenta-mensaje"
+                aria-live="polite"
+            ></p>
+
+
+            <div class="cuenta-volver">
+
+                <a href="index.html">
+                    ← Volver al inicio
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/config.js"></script>
+    <script src="js/miCuenta.js"></script>
+
+</body>
+
+</html>

@@ -38,6 +38,8 @@ loginForm.addEventListener(
                 .getElementById("password")
                 .value;
 
+            console.log("📧 CORREO ENVIADO:", correo);
+            console.log("🔐 PASSWORD ENVIADO:", password);
 
         // ==================================================
         // LIMPIAR MENSAJE
@@ -58,9 +60,9 @@ loginForm.addEventListener(
 
         try {
 
-            // ==================================================
-            // ENVIAR LOGIN AL BACKEND
-            // ==================================================
+        // ==================================================
+        // ENVIAR LOGIN AL BACKEND
+        // ==================================================
 
             const respuesta =
                 await fetch(
@@ -178,8 +180,8 @@ loginForm.addEventListener(
                     // LOGIN NORMAL
                     // ==========================================
 
-                    window.location.href =
-                        "index.html";
+                     window.location.href =
+                        "mi-cuenta.html";
 
                 }
 
@@ -203,6 +205,48 @@ loginForm.addEventListener(
 
             btnLogin.textContent =
                 "Iniciar sesión";
+
+        }
+
+    }
+);
+
+// ==========================================================
+// MOSTRAR / OCULTAR CONTRASEÑA
+// ==========================================================
+
+        const btnMostrarPassword =
+            document.getElementById("btnMostrarPassword");
+
+        const passwordInput =
+            document.getElementById("password");
+
+
+            btnMostrarPassword.addEventListener(
+        "click",
+        () => {
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+
+            btnMostrarPassword.textContent = "🙈";
+
+            btnMostrarPassword.setAttribute(
+                "aria-label",
+                "Ocultar contraseña"
+            );
+
+        } else {
+
+            passwordInput.type = "password";
+
+            btnMostrarPassword.textContent = "👁";
+
+            btnMostrarPassword.setAttribute(
+                "aria-label",
+                "Mostrar contraseña"
+            );
 
         }
 

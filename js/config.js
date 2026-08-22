@@ -6,7 +6,7 @@
 const CONFIG = {
 
     api: {
-    baseURL: "https://buganbillias-bungalow.onrender.com/api"
+    baseURL: "http://localhost:3000/api"
 },
 
     hotel: {
