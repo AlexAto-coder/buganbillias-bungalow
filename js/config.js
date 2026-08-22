@@ -6,8 +6,25 @@
 const CONFIG = {
 
     api: {
-    baseURL: "http://localhost:3000/api"
-},
+
+        // ==================================
+        // DETECTAR ENTORNO
+        // ==================================
+
+        baseURL:
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+
+                ? "http://localhost:3000/api"
+
+                : "https://buganvillias-bungalow.onrender.com/api"
+
+    },
+
+
+    // ======================================
+    // DATOS DEL HOTEL
+    // ======================================
 
     hotel: {
 
@@ -28,6 +45,11 @@ const CONFIG = {
         web: "www.buganvillias.com"
 
     },
+
+
+    // ======================================
+    // CONFIGURACIÓN DE RESERVAS
+    // ======================================
 
     reservas: {
 
