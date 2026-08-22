@@ -1,3 +1,7 @@
+// ==========================================================
+// RUTAS: CLIENTES
+// ==========================================================
+
 const express = require("express");
 
 const router = express.Router();
@@ -9,7 +13,9 @@ const validarJWT =
     require("../middleware/validarJWT");
 
 
-// Obtener todos los clientes
+// ==========================================================
+// OBTENER TODOS LOS CLIENTES
+// ==========================================================
 
 router.get(
     "/",
@@ -18,7 +24,9 @@ router.get(
 );
 
 
-// Obtener perfil del cliente autenticado
+// ==========================================================
+// OBTENER PERFIL DEL CLIENTE AUTENTICADO
+// ==========================================================
 
 router.get(
     "/perfil",
@@ -27,7 +35,9 @@ router.get(
 );
 
 
-// Obtener un cliente por ID
+// ==========================================================
+// OBTENER CLIENTE POR ID
+// ==========================================================
 
 router.get(
     "/:id",
@@ -36,7 +46,9 @@ router.get(
 );
 
 
-// Registrar cliente
+// ==========================================================
+// REGISTRAR CLIENTE
+// ==========================================================
 
 router.post(
     "/",
@@ -44,7 +56,9 @@ router.post(
 );
 
 
-// Login de cliente
+// ==========================================================
+// LOGIN DE CLIENTE
+// ==========================================================
 
 router.post(
     "/login",
