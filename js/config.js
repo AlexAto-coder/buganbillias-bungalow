@@ -17,7 +17,7 @@ const CONFIG = {
 
                 ? "http://localhost:3000/api"
 
-                : "https://buganvillias-bungalow.onrender.com/api"
+                : "https://buganbillias-bungalow.onrender.com/api"
 
     },
 
